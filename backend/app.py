@@ -110,6 +110,31 @@ async def get_signing_page(record_id: str = Query(...), file_id: str = Query(...
         logger.error(f"Error loading signing page: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
+@app.get("/api/pdf/{file_id}")
+async def get_pdf(file_id: str):
+    """
+    Get PDF file for display in browser
+    
+    Args:
+        file_id: Lark file ID
+    
+    Returns:
+        PDF content as stream
+    """
+    try:
+        logger.info(f"Fetching PDF: {file_id}")
+        pdf_handler = get_pdf_handler()
+        pdf_content, cache_path = pdf_handler.fetch_pdf(file_id)
+        
+        return FileResponse(
+            cache_path,
+            media_type="application/pdf",
+            headers={"Content-Disposition": "inline; filename=signature.pdf"}
+        )
+    except Exception as e:
+        logger.error(f"Error fetching PDF {file_id}: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
 @app.post("/api/sign")
 async def sign_pdf(
     record_id: str = Query(...),
