@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Signature</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.14.159/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.0/fabric.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>PDF Signature</h1>
+            <p id="status">Loading PDF...</p>
+        </div>
+
+        <div class="content">
+            <div class="pdf-container">
+                <canvas id="pdfCanvas"></canvas>
+            </div>
+
+            <div class="controls">
+                <div class="signature-box" id="signatureBox">
+                    <p>Drag this box to position your signature</p>
+                </div>
+
+                <div class="info">
+                    <label>Timestamp:</label>
+                    <input type="text" id="timestamp" readonly>
+                </div>
+
+                <div class="actions">
+                    <button id="signBtn" onclick="submitSignature()">Sign PDF</button>
+                    <button id="cancelBtn" onclick="cancelSigning()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="sign.js"></script>
+</body>
+</html>
